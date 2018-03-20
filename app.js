@@ -4,6 +4,47 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var LYAPI = require('lvyii_api');
+var LYAUTH = require('lvyii_auth');
+
+const appApiCfg = {
+  appName: 'KaierPlanet',
+  uploader: {
+    provider: 'qiniu',
+    AK: '9OGLd9KVSUq4GhoNv2JS8Fg68M-0CawSEs-e1lPK',
+    SK: 'qvVqq0Fjlx8xpyBjp7WvnjyGqVpdXOsSTQqS19RN',
+    bucket: 'kaierplanet',
+    region: 'z2',
+    bindDomain: 'http://p5vltllic.bkt.clouddn.com'
+  },
+  sms: {
+    provider: "qcloudsms",
+    appId: "1400077093",
+    appKey: "45a725e82703b9b1ac98676278f1804e",
+    sign: "小吉网络"
+  }
+}
+
+LYAPI.init(appApiCfg);
+
+const appAuthCfg = {
+  appName: 'KaierPlanet',
+  secret: 'aU1YJa8ABZbTGH15X9Cp0af9IcRt5q7o',
+  serverURLs: {
+    api: 'http://kaierbase.xiaojee.cn'
+  },
+  media: 'redis',
+  mediaCfg: {
+    redis_url: '193.112.106.11',
+    redis_port: '6379',
+    redis_db: '0',
+    redis_auth: 'Simors2018',
+  },
+  verifyPhoneSmsTempId: '96732',
+  
+};
+
+LYAUTH.init(appAuthCfg);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +62,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(LYAPI.express())
+app.use(LYAUTH.express())
 
 app.use('/', index);
 app.use('/users', users);
