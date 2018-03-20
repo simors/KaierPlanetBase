@@ -1,3 +1,6 @@
+'use strict';
+require('babel-register')
+require("babel-polyfill")
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
