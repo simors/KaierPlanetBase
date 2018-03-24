@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var LYAPI = require('lvyii_api');
 var LYAUTH = require('lvyii_auth');
+var userFuncs = require('./user')
 
 const appApiCfg = {
   appName: 'KaierPlanet',
@@ -45,9 +46,18 @@ const appAuthCfg = {
   },
   verifyPhoneSmsTempId: '96732',
   
+  fetchUserById: userFuncs.fetchUserById,
+  loginWithMobilePhone: userFuncs.loginWithMobilePhone,
+  loginWithUsername: userFuncs.loginWithUsername,
+  signUpWithUsername: userFuncs.signUpWithUsername,
+  signUpWithMobilePhone: userFuncs.signUpWithMobilePhone,
+  signUpOrlogInWithMobilePhone: userFuncs.signUpOrlogInWithMobilePhone
 };
 
 LYAUTH.init(appAuthCfg);
+
+// 初始化mongodb的连接
+require('./util/mongdUtil')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
