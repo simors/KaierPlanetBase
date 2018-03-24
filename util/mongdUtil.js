@@ -15,7 +15,7 @@ const options = {
 
 mongoose.connect(MONGODB_URL, options);
 
-export const mongodb = mongoose.connection
+const mongodb = mongoose.connection
 
 mongodb.on('error', function (err) {
   console.error('Mongoose connect error:', err)
@@ -28,3 +28,5 @@ mongodb.on('connected', function () {
 mongodb.on('disconnected', function () {
   console.log('Mongoose connection disconnected', MONGODB_URL);
 })
+
+export default mongoose
