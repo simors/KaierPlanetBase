@@ -26,14 +26,18 @@ export async function fetchUserById(userId) {
 export async function signUpOrlogInWithMobilePhone(phoneNumber) {
   let user = await User.findOneAndUpdate({mobilePhone: phoneNumber}, {loginDate: new Date()}).exec()
   if (user) {
-    return user
+    let userInfo = user
+    userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+    return userInfo
   } else {
     user = new User({
       username: phoneNumber,
       mobilePhone: phoneNumber,
       loginDate: new Date()
     })
-    return await user.save()
+    let userInfo =  await user.save()
+    userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+    return userInfo
   }
 }
 
@@ -47,7 +51,9 @@ export async function loginWithMobilePhone(phoneNumber, password) {
   let user = await User.findOneAndUpdate({mobilePhone: phoneNumber}, {loginDate: new Date()}).exec()
   if (user) {
     if (user.password === password) {
-      return user
+      let userInfo = user
+      userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+      return userInfo
     } else {
       throw new LYAUTH.Error('password not match', {code: 101})
     }
@@ -66,7 +72,9 @@ export async function loginWithUsername(username, password) {
   let user = await User.findOneAndUpdate({username: username}, {loginDate: new Date()}).exec()
   if (user) {
     if (user.password === password) {
-      return user
+      let userInfo = user
+      userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+      return userInfo
     } else {
       throw new LYAUTH.Error('password not match', {code: 101})
     }
@@ -91,7 +99,9 @@ export async function signUpWithUsername(username, password) {
       password: password,
       loginDate: new Date()
     })
-    return await user.save()
+    let userInfo =  await user.save()
+    userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+    return userInfo
   }
 }
 
@@ -112,6 +122,8 @@ export async function signUpWithMobilePhone(phoneNumber, password) {
       password: password,
       loginDate: new Date()
     })
-    return await user.save()
+    let userInfo =  await user.save()
+    userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+    return userInfo
   }
 }
