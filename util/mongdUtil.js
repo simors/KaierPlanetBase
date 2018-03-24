@@ -6,7 +6,6 @@ import mongoose from 'mongoose'
 const MONGODB_URL = process.env.MONGODB_URL || "mongodb://localhost:27501/KaierPlanet_dev"
 
 const options = {
-  useMongoClient: true,
   autoIndex: false, // Don't build indexes
   reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
   reconnectInterval: 500, // Reconnect every 500ms
