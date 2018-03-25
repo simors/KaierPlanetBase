@@ -3,6 +3,7 @@ module.exports = {
     name   : "KaierPlanetBase",
     script : "./bin/www",
     watch  : true,
+    log_date_format: "YYYY-MM-DD HH:mm:ss Z",
     env: {
       NODE_ENV: "development",
       PORT: 4801,
