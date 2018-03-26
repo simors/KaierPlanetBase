@@ -25,9 +25,9 @@ export async function fetchUserById(userId) {
  */
 export async function signUpOrlogInWithMobilePhone(phoneNumber) {
   let user = await User.findOneAndUpdate({mobilePhone: phoneNumber}, {loginDate: new Date()}).exec()
+  let userInfo = {}
   if (user) {
-    let userInfo = user
-    userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+    userInfo = Object.assign({}, user, {id: user.id})    // lvyii_auth的接口邀请必须返回id
     return userInfo
   } else {
     user = new User({
@@ -35,8 +35,8 @@ export async function signUpOrlogInWithMobilePhone(phoneNumber) {
       mobilePhone: phoneNumber,
       loginDate: new Date()
     })
-    let userInfo =  await user.save()
-    userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+    userInfo =  await user.save()
+    userInfo = Object.assign(userInfo, {id: user.id})    // lvyii_auth的接口邀请必须返回id
     return userInfo
   }
 }
