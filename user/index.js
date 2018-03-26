@@ -25,9 +25,10 @@ export async function fetchUserById(userId) {
  */
 export async function signUpOrlogInWithMobilePhone(phoneNumber) {
   let user = await User.findOneAndUpdate({mobilePhone: phoneNumber}, {loginDate: new Date()}).exec()
-  let userInfo = {}
+  user = user._doc
+  let userInfo = user
   if (user) {
-    userInfo = Object.assign({}, user, {id: user._id})    // lvyii_auth的接口邀请必须返回id
+    userInfo.id = user._id    // lvyii_auth的接口邀请必须返回id
     return userInfo
   } else {
     user = new User({
@@ -36,7 +37,7 @@ export async function signUpOrlogInWithMobilePhone(phoneNumber) {
       loginDate: new Date()
     })
     userInfo =  await user.save()
-    userInfo = Object.assign(userInfo, {id: user._id})    // lvyii_auth的接口邀请必须返回id
+    userInfo.id = user._id    // lvyii_auth的接口邀请必须返回id
     return userInfo
   }
 }
@@ -49,10 +50,11 @@ export async function signUpOrlogInWithMobilePhone(phoneNumber) {
  */
 export async function loginWithMobilePhone(phoneNumber, password) {
   let user = await User.findOneAndUpdate({mobilePhone: phoneNumber}, {loginDate: new Date()}).exec()
-  let userInfo = {}
+  user = user._doc
+  let userInfo = user
   if (user) {
     if (user.password === password) {
-      userInfo = Object.assign({}, user, {id: user._id})    // lvyii_auth的接口邀请必须返回id
+      userInfo.id = user._id    // lvyii_auth的接口邀请必须返回id
       return userInfo
     } else {
       throw new LYAUTH.Error('password not match', {code: 101})
@@ -70,10 +72,11 @@ export async function loginWithMobilePhone(phoneNumber, password) {
  */
 export async function loginWithUsername(username, password) {
   let user = await User.findOneAndUpdate({username: username}, {loginDate: new Date()}).exec()
-  let userInfo = {}
+  user = user._doc
+  let userInfo = user
   if (user) {
     if (user.password === password) {
-      userInfo = Object.assign({}, user, {id: user._id})    // lvyii_auth的接口邀请必须返回id
+      userInfo.id = user._id    // lvyii_auth的接口邀请必须返回id
       return userInfo
     } else {
       throw new LYAUTH.Error('password not match', {code: 101})
@@ -91,6 +94,7 @@ export async function loginWithUsername(username, password) {
  */
 export async function signUpWithUsername(username, password) {
   let user = await User.findOne({username: username}).exec()
+  user = user._doc
   if (user) {
     throw new LYAUTH.Error('user already exist', {code: 100})
   } else {
@@ -100,7 +104,7 @@ export async function signUpWithUsername(username, password) {
       loginDate: new Date()
     })
     let userInfo =  await user.save()
-    userInfo = Object.assign(userInfo, {id: user._id})    // lvyii_auth的接口邀请必须返回id
+    userInfo.id = user._id     // lvyii_auth的接口邀请必须返回id
     return userInfo
   }
 }
@@ -113,6 +117,7 @@ export async function signUpWithUsername(username, password) {
  */
 export async function signUpWithMobilePhone(phoneNumber, password) {
   let user = await User.findOne({mobilePhone: phoneNumber}).exec()
+  user = user._doc
   if (user) {
     throw new LYAUTH.Error('user already exist', {code: 100})
   } else {
@@ -123,7 +128,7 @@ export async function signUpWithMobilePhone(phoneNumber, password) {
       loginDate: new Date()
     })
     let userInfo =  await user.save()
-    userInfo = Object.assign(userInfo, {id: user._id})    // lvyii_auth的接口邀请必须返回id
+    userInfo.id = user._id     // lvyii_auth的接口邀请必须返回id
     return userInfo
   }
 }
