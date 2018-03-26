@@ -27,7 +27,7 @@ export async function signUpOrlogInWithMobilePhone(phoneNumber) {
   let user = await User.findOneAndUpdate({mobilePhone: phoneNumber}, {loginDate: new Date()}).exec()
   let userInfo = {}
   if (user) {
-    userInfo = Object.assign({}, user, {id: user.id})    // lvyii_auth的接口邀请必须返回id
+    userInfo = Object.assign({}, user, {id: user._id})    // lvyii_auth的接口邀请必须返回id
     return userInfo
   } else {
     user = new User({
@@ -36,7 +36,7 @@ export async function signUpOrlogInWithMobilePhone(phoneNumber) {
       loginDate: new Date()
     })
     userInfo =  await user.save()
-    userInfo = Object.assign(userInfo, {id: user.id})    // lvyii_auth的接口邀请必须返回id
+    userInfo = Object.assign(userInfo, {id: user._id})    // lvyii_auth的接口邀请必须返回id
     return userInfo
   }
 }
@@ -49,10 +49,10 @@ export async function signUpOrlogInWithMobilePhone(phoneNumber) {
  */
 export async function loginWithMobilePhone(phoneNumber, password) {
   let user = await User.findOneAndUpdate({mobilePhone: phoneNumber}, {loginDate: new Date()}).exec()
+  let userInfo = {}
   if (user) {
     if (user.password === password) {
-      let userInfo = user
-      userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+      userInfo = Object.assign({}, user, {id: user._id})    // lvyii_auth的接口邀请必须返回id
       return userInfo
     } else {
       throw new LYAUTH.Error('password not match', {code: 101})
@@ -70,10 +70,10 @@ export async function loginWithMobilePhone(phoneNumber, password) {
  */
 export async function loginWithUsername(username, password) {
   let user = await User.findOneAndUpdate({username: username}, {loginDate: new Date()}).exec()
+  let userInfo = {}
   if (user) {
     if (user.password === password) {
-      let userInfo = user
-      userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+      userInfo = Object.assign({}, user, {id: user._id})    // lvyii_auth的接口邀请必须返回id
       return userInfo
     } else {
       throw new LYAUTH.Error('password not match', {code: 101})
@@ -100,7 +100,7 @@ export async function signUpWithUsername(username, password) {
       loginDate: new Date()
     })
     let userInfo =  await user.save()
-    userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+    userInfo = Object.assign(userInfo, {id: user._id})    // lvyii_auth的接口邀请必须返回id
     return userInfo
   }
 }
@@ -123,7 +123,7 @@ export async function signUpWithMobilePhone(phoneNumber, password) {
       loginDate: new Date()
     })
     let userInfo =  await user.save()
-    userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+    userInfo = Object.assign(userInfo, {id: user._id})    // lvyii_auth的接口邀请必须返回id
     return userInfo
   }
 }
