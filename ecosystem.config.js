@@ -17,9 +17,7 @@ module.exports = {
       REDIS_PORT: '6379',
       REDIS_DB: '0',
       REDIS_AUTH: 'Simors2018',
-      MONGODB_URL: 'mongodb://193.112.106.11:27017/KaierPlanet_dev',
-      MONGODB_USER: '',
-      MONGODB_PWD: '',
+      MONGODB_URL: 'mongodb://simors:simors401a@193.112.106.11:27017/KaierPlanet_dev',
     },
     env_staging : {
       NODE_ENV: "staging",
@@ -34,6 +32,7 @@ module.exports = {
       REDIS_PORT: '6379',
       REDIS_DB: '1',
       REDIS_AUTH: 'Simors2018',
+      MONGODB_URL: 'mongodb://simors:simors401a@193.112.106.11:27017/KaierPlanet_stage',
     },
     env_production : {
       NODE_ENV: "production",
@@ -48,6 +47,7 @@ module.exports = {
       REDIS_PORT: '6379',
       REDIS_DB: '2',
       REDIS_AUTH: 'Simors2018',
+      MONGODB_URL: 'mongodb://simors:simors401a@193.112.106.11:27017/KaierPlanet',
     }
   }]
 }
