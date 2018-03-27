@@ -10,4 +10,4 @@ let UserSchema = new mongoose.Schema({
   loginDate : { type: Date}
 })
 
-export default mongoose.model("User", UserSchema)
+export default mongoose.model("User", UserSchema, "Users")
