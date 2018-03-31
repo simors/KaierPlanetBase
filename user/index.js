@@ -33,7 +33,7 @@ export async function signUpOrlogInWithMobilePhone(phoneNumber) {
     return userInfo
   } else {
     user = new User({
-      username: phoneNumber,
+      username: "",
       mobilePhone: phoneNumber,
       loginDate: new Date()
     })
@@ -124,7 +124,7 @@ export async function signUpWithMobilePhone(phoneNumber, password) {
     throw new LYAUTH.Error('user already exist', {code: 100})
   } else {
     user = new User({
-      username: phoneNumber,
+      username: "",
       mobilePhone: phoneNumber,
       password: password,
       loginDate: new Date()
