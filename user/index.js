@@ -10,8 +10,11 @@ import LYAUTH from 'lvyii_auth'
  * @returns {Promise|Array|{index: number, input: string}}
  */
 export async function fetchUserById(userId) {
-  let userInfo = await User.findOne({_id: userId}).exec()
-  if (userInfo) {
+  let user = await User.findOne({_id: userId}).exec()
+  let userInfo = undefined
+  if (user) {
+    user = user._doc
+    userInfo = user
     userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
   }
   return userInfo
