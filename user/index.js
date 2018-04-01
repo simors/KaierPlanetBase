@@ -15,7 +15,9 @@ export async function fetchUserById(userId) {
       console.error('error in find user by id,', err)
     }
   }
-  return await User.findById(userId).exec(findCallback)
+  let userInfo = await User.findById(userId).exec(findCallback)
+  userInfo.id = userInfo._id    // lvyii_auth的接口邀请必须返回id
+  return userInfo
 }
 
 /**
