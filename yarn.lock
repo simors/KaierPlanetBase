@@ -1163,9 +1163,9 @@ lvyii_api@^0.0.9:
     qiniu "^7.1.2"
     underscore "^1.8.3"
 
-lvyii_auth@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.npmjs.org/lvyii_auth/-/lvyii_auth-0.0.7.tgz#68879caf72cb48ab8bf0d5d96eb65e656a2b95f7"
+lvyii_auth@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.npmjs.org/lvyii_auth/-/lvyii_auth-0.0.8.tgz#b61a7ea6f345d998ad46e6bbb8bf43f724e848e5"
   dependencies:
     bluebird "^3.5.1"
     body-parser "^1.18.2"
